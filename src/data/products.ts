@@ -1,0 +1,401 @@
+// Every product, price and option lives here. Cards, search, filters, the cart
+// and the product pages all read from this one list, so they can never disagree.
+// Prices are whole US dollars; other currencies are converted in lib/currency.ts.
+
+export type Room = 'living' | 'dining' | 'bedroom' | 'workspace' | 'outdoor';
+export type Kind = 'Sofas' | 'Chairs' | 'Tables' | 'Beds' | 'Storage' | 'Lighting' | 'Decor';
+
+export interface Finish {
+  name: string;
+  hex: string;
+}
+
+export interface Product {
+  slug: string;
+  name: string;
+  image: string; // key in images/ (see data/lqip.json)
+  detail?: string; // close-up shown second in the gallery
+  price: number; // USD
+  compareAt?: number; // USD, shown struck through when set
+  rooms: Room[];
+  kind: Kind;
+  material: string;
+  finishes: Finish[];
+  rating: number;
+  reviews: number;
+  isNew?: boolean;
+  isBest?: boolean;
+  leadTime: string;
+  dims: string;
+  blurb: string;
+  details: string[];
+}
+
+export const ROOMS: { id: Room; label: string; image: string; blurb: string }[] = [
+  { id: 'living', label: 'Living', image: 'c-living', blurb: 'Sofas, lounge chairs and low tables' },
+  { id: 'dining', label: 'Dining', image: 'c-dining', blurb: 'Solid-wood tables and soft seats' },
+  { id: 'bedroom', label: 'Bedroom', image: 'c-bedroom', blurb: 'Beds and bedside pieces' },
+  { id: 'outdoor', label: 'Outdoor', image: 'c-outdoor', blurb: 'Teak loungers for long summers' },
+];
+
+export const ROOM_LABEL: Record<Room, string> = {
+  living: 'Living',
+  dining: 'Dining',
+  bedroom: 'Bedroom',
+  workspace: 'Workspace',
+  outdoor: 'Outdoor',
+};
+
+export const KINDS: Kind[] = ['Sofas', 'Chairs', 'Tables', 'Beds', 'Storage', 'Lighting', 'Decor'];
+
+export const products: Product[] = [
+  {
+    slug: 'nimbus-boucle-lounge-chair',
+    name: 'Nimbus Bouclé Lounge Chair',
+    image: 'p-nimbus',
+    detail: 'd-boucle',
+    price: 1290,
+    rooms: ['living', 'bedroom'],
+    kind: 'Chairs',
+    material: 'Bouclé',
+    finishes: [
+      { name: 'Ivory Bouclé', hex: '#efebe4' },
+      { name: 'Oat Bouclé', hex: '#d9cfbf' },
+      { name: 'Fog Bouclé', hex: '#c4c8ce' },
+    ],
+    rating: 4.9,
+    reviews: 312,
+    isBest: true,
+    leadTime: 'Ships in 1–2 weeks',
+    dims: 'W 33" × D 31" × H 30" (84 × 79 × 76 cm)',
+    blurb: 'A cloud-soft shell wrapped in looped Italian bouclé, set on slim tapered legs.',
+    details: ['Kiln-dried hardwood frame', 'High-resilience foam with feather wrap', 'Solid beech legs in a dark stain', 'Arrives fully assembled'],
+  },
+  {
+    slug: 'drift-modular-sofa',
+    name: 'Drift Modular Sofa',
+    image: 'p-drift',
+    detail: 'd-linen',
+    price: 4890,
+    rooms: ['living'],
+    kind: 'Sofas',
+    material: 'Performance linen',
+    finishes: [
+      { name: 'Fog Grey', hex: '#b9bcc0' },
+      { name: 'Chalk', hex: '#e9e6df' },
+      { name: 'Slate', hex: '#6b7078' },
+    ],
+    rating: 4.8,
+    reviews: 186,
+    isBest: true,
+    leadTime: 'Made to order · 4–6 weeks',
+    dims: 'W 118" × D 40" × H 27" (300 × 102 × 69 cm)',
+    blurb: 'Deep, low modules you can rearrange into a sofa, a chaise or a daybed.',
+    details: ['Four modules that clip together', 'Stain-resistant performance linen', 'Removable, washable covers', 'Feather and foam seat cushions'],
+  },
+  {
+    slug: 'haven-corner-sectional',
+    name: 'Haven Corner Sectional',
+    image: 'p-haven',
+    detail: 'd-linen',
+    price: 5690,
+    compareAt: 6290,
+    rooms: ['living'],
+    kind: 'Sofas',
+    material: 'Woven linen',
+    finishes: [
+      { name: 'Sand', hex: '#d8cfc0' },
+      { name: 'Fog Grey', hex: '#bfc2c6' },
+    ],
+    rating: 4.8,
+    reviews: 97,
+    leadTime: 'Made to order · 5–7 weeks',
+    dims: 'W 126" × D 98" × H 29" (320 × 249 × 74 cm)',
+    blurb: 'A channel-tufted corner sofa with room for the whole family and the dog.',
+    details: ['Left or right corner, chosen at delivery', 'Channel-stitched back cushions', 'Pocket-sprung seat base', 'Low plinth base, no visible legs'],
+  },
+  {
+    slug: 'juniper-velvet-sofa',
+    name: 'Juniper Velvet Sofa',
+    image: 'p-juniper',
+    detail: 'd-linen',
+    price: 2890,
+    rooms: ['living'],
+    kind: 'Sofas',
+    material: 'Cotton velvet',
+    finishes: [
+      { name: 'Forest', hex: '#1f4d43' },
+      { name: 'Midnight', hex: '#1e325a' },
+      { name: 'Clay', hex: '#b9765a' },
+    ],
+    rating: 4.7,
+    reviews: 148,
+    isNew: true,
+    leadTime: 'Ships in 2–3 weeks',
+    dims: 'W 84" × D 35" × H 33" (213 × 89 × 84 cm)',
+    blurb: 'A mid-century three-seater in deep cotton velvet with bolster cushions.',
+    details: ['Solid oak tapered legs', 'Two matching bolster cushions', 'Tight back, loose seat cushions', 'Fits through a 30" doorway'],
+  },
+  {
+    slug: 'alder-oak-dining-table',
+    name: 'Alder Oak Dining Table',
+    image: 'p-alder',
+    detail: 'd-wood',
+    price: 2650,
+    rooms: ['dining'],
+    kind: 'Tables',
+    material: 'Solid oak',
+    finishes: [
+      { name: 'Natural Oak', hex: '#c8955f' },
+      { name: 'Smoked Oak', hex: '#6e5039' },
+    ],
+    rating: 4.9,
+    reviews: 204,
+    isBest: true,
+    leadTime: 'Made to order · 4–6 weeks',
+    dims: 'W 79" × D 39" × H 30" (200 × 100 × 76 cm)',
+    blurb: 'FSC-certified solid oak with hand-cut joinery. Seats six, eight at a squeeze.',
+    details: ['FSC-certified European oak', 'Hand-finished with hardwax oil', 'Mortise-and-tenon joinery', 'Seats 6–8'],
+  },
+  {
+    slug: 'ripple-dining-chair',
+    name: 'Ripple Dining Chair',
+    image: 'p-ripple',
+    detail: 'd-wood',
+    price: 420,
+    rooms: ['dining', 'workspace'],
+    kind: 'Chairs',
+    material: 'Oak & wool',
+    finishes: [
+      { name: 'Pebble Wool', hex: '#b7b5b0' },
+      { name: 'Ivory Wool', hex: '#ece8e0' },
+    ],
+    rating: 4.8,
+    reviews: 265,
+    leadTime: 'Ships in 1–2 weeks',
+    dims: 'W 21" × D 23" × H 35" (53 × 58 × 89 cm)',
+    blurb: 'A wrap-around upholstered seat on a light oak frame. Comfortable for long dinners.',
+    details: ['Solid oak frame', 'Wool-blend upholstery', 'Felt floor protectors fitted', 'Sold individually'],
+  },
+  {
+    slug: 'tide-oval-coffee-table',
+    name: 'Tide Oval Coffee Table',
+    image: 'p-tide',
+    detail: 'd-wood',
+    price: 1180,
+    rooms: ['living'],
+    kind: 'Tables',
+    material: 'Walnut veneer',
+    finishes: [
+      { name: 'Walnut', hex: '#7a5232' },
+      { name: 'Natural Oak', hex: '#c8955f' },
+    ],
+    rating: 4.7,
+    reviews: 88,
+    isNew: true,
+    leadTime: 'Ships in 2–3 weeks',
+    dims: 'W 55" × D 24" × H 13" (140 × 61 × 33 cm)',
+    blurb: 'A pebble-shaped top floating on a looped steel base.',
+    details: ['Walnut veneer on birch ply', 'Powder-coated steel base', 'Rounded, child-friendly edges', 'Easy two-bolt assembly'],
+  },
+  {
+    slug: 'halo-round-coffee-table',
+    name: 'Halo Round Coffee Table',
+    image: 'p-halo',
+    detail: 'd-stone',
+    price: 890,
+    rooms: ['living'],
+    kind: 'Tables',
+    material: 'Mineral plaster',
+    finishes: [
+      { name: 'Limewash', hex: '#e2d8c8' },
+      { name: 'Smoked', hex: '#4a4038' },
+    ],
+    rating: 4.8,
+    reviews: 121,
+    leadTime: 'Ships in 1–2 weeks',
+    dims: 'Ø 35" × H 14" (89 × 36 cm)',
+    blurb: 'A soft-edged drum with a hand-trowelled mineral finish. No two are the same.',
+    details: ['Hand-trowelled mineral plaster', 'Sealed against rings and spills', 'Felt base protects floors', 'Arrives assembled'],
+  },
+  {
+    slug: 'still-water-bed',
+    name: 'Still Water Bed (Queen)',
+    image: 'p-still',
+    detail: 'd-boucle',
+    price: 3390,
+    rooms: ['bedroom'],
+    kind: 'Beds',
+    material: 'Bouclé',
+    finishes: [
+      { name: 'Sand Bouclé', hex: '#d9c9b0' },
+      { name: 'Ivory Bouclé', hex: '#efebe4' },
+    ],
+    rating: 4.9,
+    reviews: 76,
+    isNew: true,
+    leadTime: 'Made to order · 5–7 weeks',
+    dims: 'W 72" × L 92" × H 14" (183 × 234 × 36 cm)',
+    blurb: 'A low, rounded platform bed that looks like it is floating on the floor.',
+    details: ['Fits a US Queen mattress (UK King on request)', 'Sprung slatted base, no box spring needed', 'Removable bouclé cover', 'White-glove assembly included'],
+  },
+  {
+    slug: 'eddy-nightstand',
+    name: 'Eddy Nightstand',
+    image: 'p-eddy',
+    detail: 'd-wood',
+    price: 560,
+    rooms: ['bedroom'],
+    kind: 'Storage',
+    material: 'Oak & lacquer',
+    finishes: [
+      { name: 'White / Oak', hex: '#f4f2ee' },
+      { name: 'Black / Oak', hex: '#2b2b2b' },
+    ],
+    rating: 4.7,
+    reviews: 143,
+    leadTime: 'Ships in 1–2 weeks',
+    dims: 'W 18" × D 16" × H 22" (46 × 41 × 56 cm)',
+    blurb: 'One soft-close drawer and an open shelf for the books you are actually reading.',
+    details: ['Soft-close drawer', 'Hidden cable cut-out', 'Solid oak legs', 'Sold individually'],
+  },
+  {
+    slug: 'lumen-floor-lamp',
+    name: 'Lumen Task Floor Lamp',
+    image: 'p-lumen',
+    price: 340,
+    rooms: ['living', 'workspace'],
+    kind: 'Lighting',
+    material: 'Powder-coated steel',
+    finishes: [
+      { name: 'Graphite', hex: '#3a3d42' },
+      { name: 'Ivory', hex: '#efece6' },
+    ],
+    rating: 4.6,
+    reviews: 210,
+    leadTime: 'Ships in 3–5 days',
+    dims: 'H 63" × Ø shade 9" (160 × 23 cm)',
+    blurb: 'An adjustable reading lamp with a weighted base and a warm, dimmable glow.',
+    details: ['Tilting, rotating shade', 'Foot dimmer on the cable', 'Works with US, UK, CA and EU plugs', 'E26/E27 bulb included'],
+  },
+  {
+    slug: 'orb-marble-table-lamp',
+    name: 'Orb Marble Table Lamp',
+    image: 'p-orb',
+    price: 260,
+    rooms: ['living', 'bedroom'],
+    kind: 'Lighting',
+    material: 'Marble & opal glass',
+    finishes: [
+      { name: 'White Marble', hex: '#eeeeec' },
+      { name: 'Nero Marble', hex: '#2d2d2d' },
+    ],
+    rating: 4.8,
+    reviews: 167,
+    leadTime: 'Ships in 3–5 days',
+    dims: 'H 21" × Ø 8" (53 × 20 cm)',
+    blurb: 'A hand-blown opal globe on a turned marble base, with a slim brass stem.',
+    details: ['Hand-blown opal glass', 'Solid marble base', 'Inline dimmer switch', 'Bulb included'],
+  },
+  {
+    slug: 'bell-brass-pendant',
+    name: 'Bell Brass Pendant',
+    image: 'p-bell',
+    price: 380,
+    rooms: ['dining'],
+    kind: 'Lighting',
+    material: 'Spun brass',
+    finishes: [
+      { name: 'Brushed Brass', hex: '#b8925a' },
+      { name: 'Matte Black', hex: '#2b2b2b' },
+    ],
+    rating: 4.7,
+    reviews: 92,
+    leadTime: 'Ships in 3–5 days',
+    dims: 'Ø 14" × H 13" (36 × 33 cm), 79" cord',
+    blurb: 'A spun-brass dome that throws a warm pool of light over the table.',
+    details: ['Spun and hand-brushed brass', 'Adjustable fabric cord', 'Hardwired; fitting kit included', 'Group of three looks great over a table'],
+  },
+  {
+    slug: 'delta-walnut-sideboard',
+    name: 'Delta Walnut Sideboard',
+    image: 'p-delta',
+    detail: 'd-wood',
+    price: 2190,
+    rooms: ['living', 'dining'],
+    kind: 'Storage',
+    material: 'Walnut',
+    finishes: [
+      { name: 'Walnut', hex: '#7a5232' },
+      { name: 'Natural Oak', hex: '#c8955f' },
+    ],
+    rating: 4.9,
+    reviews: 58,
+    isBest: true,
+    leadTime: 'Made to order · 4–6 weeks',
+    dims: 'W 71" × D 18" × H 30" (180 × 46 × 76 cm)',
+    blurb: 'A long, low sideboard with sliding doors and finger-pull drawers.',
+    details: ['Walnut veneer and solid walnut edges', 'Two adjustable shelves', 'Three soft-close drawers', 'Cable holes at the back'],
+  },
+  {
+    slug: 'cove-wall-desk',
+    name: 'Cove Writing Desk',
+    image: 'p-cove',
+    detail: 'd-wood',
+    price: 1350,
+    rooms: ['workspace'],
+    kind: 'Tables',
+    material: 'Solid oak',
+    finishes: [
+      { name: 'Natural Oak', hex: '#c8955f' },
+      { name: 'Smoked Oak', hex: '#6e5039' },
+    ],
+    rating: 4.7,
+    reviews: 64,
+    leadTime: 'Ships in 2–3 weeks',
+    dims: 'W 55" × D 22" × H 30" (140 × 56 × 76 cm)',
+    blurb: 'A calm, uncluttered desk with a hidden cable tray and room for two screens.',
+    details: ['Solid oak top and legs', 'Hidden cable tray underneath', 'Matching wall shelf included', 'Simple four-bolt assembly'],
+  },
+  {
+    slug: 'pool-round-mirror',
+    name: 'Pool Round Mirror',
+    image: 'p-pool',
+    price: 420,
+    rooms: ['living', 'bedroom'],
+    kind: 'Decor',
+    material: 'Iron frame',
+    finishes: [
+      { name: 'Black', hex: '#2b2b2b' },
+      { name: 'Brass', hex: '#b8925a' },
+    ],
+    rating: 4.8,
+    reviews: 301,
+    leadTime: 'Ships in 3–5 days',
+    dims: 'Ø 36" (91 cm)',
+    blurb: 'A slim-framed round mirror that bounces light around a room.',
+    details: ['Distortion-free silvered glass', 'Hand-finished iron frame', 'Hangs from a single hook', 'Safety-backed glass'],
+  },
+  {
+    slug: 'shoreline-outdoor-lounger',
+    name: 'Shoreline Outdoor Lounger',
+    image: 'p-shore',
+    price: 1490,
+    rooms: ['outdoor'],
+    kind: 'Chairs',
+    material: 'Teak & outdoor fabric',
+    finishes: [
+      { name: 'Harbor Blue', hex: '#8aa6b8' },
+      { name: 'Sand', hex: '#d8cfc0' },
+    ],
+    rating: 4.7,
+    reviews: 45,
+    isNew: true,
+    leadTime: 'Ships in 2–3 weeks',
+    dims: 'L 79" × W 28" × H 14" (200 × 71 × 36 cm)',
+    blurb: 'A five-position teak lounger with quick-dry cushions that live outside all summer.',
+    details: ['Grade-A plantation teak', 'Quick-dry, fade-resistant cushions', 'Five back positions', 'Rear wheels for easy moving'],
+  },
+];
+
+export const bySlug = (slug: string) => products.find(p => p.slug === slug);

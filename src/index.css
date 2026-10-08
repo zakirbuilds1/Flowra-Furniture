@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Helvetica Regular";
+    src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot");
+    src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.svg#Helvetica Regular")format("svg");
+}
+
+@theme {
+  --font-helvetica: "Helvetica Regular", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  font-family: var(--font-helvetica);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #f0f0f0;
+}
+
+/* ---------- Flowra design tokens (shared by every page) ---------- */
+@theme {
+  --color-navy: #1e325a;   /* rgba(30,50,90) from the hero spec */
+  --color-ink: #2d2d2d;    /* nav text rgb(45,45,45) */
+  --color-slate: #5e6470;  /* headline grey */
+  --color-mist: #f0f0f0;   /* page background */
+  --color-brass: #b8925a;  /* gold side table in the hero video */
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: rgba(30, 50, 90, 0.85);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(30, 50, 90, 0.7);
+  outline-offset: 3px;
+}
+
+/* Custom classes live in the components layer so Tailwind utilities can still override them */
+@layer components {
+  /* Responsive image with a blurred placeholder underneath */
+  .lqip {
+    background-size: cover;
+    background-position: center;
+  }
+  .lqip > img {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .lqip > img.is-loaded {
+    opacity: 1;
+  }
+
+  /* Crystal glass: frosted panel, gradient hairline edge, slow light sweep */
+  .crystal {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.42));
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: 0 10px 30px -12px rgba(30, 50, 90, 0.25);
+  }
+  .crystal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 40%, rgba(30, 50, 90, 0.18) 70%, rgba(255, 255, 255, 0.7));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .sheen::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: rotate(18deg);
+    transition: left 0.9s ease;
+  }
+  .group:hover .sheen::after {
+    left: 130%;
+  }
+
+  /* Thin, quiet scrollbars inside drawers */
+  .soft-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(30, 50, 90, 0.2) transparent;
+  }
+}
+
+input[type="range"] {
+  accent-color: #1e325a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .sheen::after,
+  .lqip > img {
+    transition: none;
+  }
+}
